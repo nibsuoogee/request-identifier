@@ -35,7 +35,7 @@ class Identifier:
                 params["source"]
                 params["paymentnumber"]
             except KeyError:
-                return 0  
+                return 0
 
             for key, value in params.items(): # Attempt to cast all params to int
                 try:
@@ -71,17 +71,16 @@ class Client():
 
     def identify_uri(self, URI: str):
         data = self.Identifier_instance.identify_request(URI)
-        # method returns data in the form {'path': 'value', 'parameters': {'': '', '': ''}}
-        # or 0 if validation fails
-        print(data)
+        return data
 
 
 if __name__ == "__main__":
     # Client using the identifier with example URIs and a few test cases
     client = Client()
-    client.identify_uri("visma-identity://login?source=severa")
-    client.identify_uri("visma-identity://confirm?source=netvisor&paymentnumber=102226")
-    client.identify_uri("visma-identity://sign?source=vismasign&documentid=105ab44")
-    client.identify_uri(1)
-    client.identify_uri("")
-    client.identify_uri(None)
+    print(client.identify_uri("visma-identity://login?source=severa"))
+    print(client.identify_uri("visma-identity://confirm?source=netvisor&paymentnumber=102226"))
+    print(client.identify_uri("visma-identity://sign?source=vismasign&documentid=105ab44"))
+    print(client.identify_uri(1))
+    print(client.identify_uri(""))
+    print(client.identify_uri(None))
+    print(client.identify_uri("https://sign?source=vismasign&documentid=105ab44"))
