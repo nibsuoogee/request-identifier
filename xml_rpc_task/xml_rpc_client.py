@@ -36,6 +36,9 @@ class Client():
             print(result)
         print(f"Searching for new information on topic '{topic}'...")
         result = self.proxy.getWiki(topic)
+        if result == 1:
+            print(f"An error occured while searching for '{topic}'.")
+            return
         print(result)
         appendChoice = input('Append the information to the database? (y/n): ')
         if (appendChoice == 'y'):
@@ -53,6 +56,10 @@ class Client():
             print(f"Appended to topic '{topic}'.")
         return
 
+    def addit(self):
+        result = self.proxy.add(1,3)
+        print(result)
+
 if __name__ == "__main__":
     client = Client()
     i = '-1'
@@ -66,6 +73,8 @@ if __name__ == "__main__":
                 client.newEntry()
             case '2':
                 client.searchTopic()
+            case '3':
+                client.addit()
             case '0':
                 break
             case _:

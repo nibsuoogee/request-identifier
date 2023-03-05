@@ -115,10 +115,14 @@ def getWikiContent(content_title):
         return 1
     return PAGE
 
+def add(x,y):
+    return x+y
+
 if __name__ == "__main__":
     server = ThreadedXMLRPCServer(('localhost', 8000), requestHandler=RequestHandler)
     print("Listening on port 8000...")
 
+    server.register_function(add)
     server.register_function( addEntry )
     server.register_function( getEntries )
     server.register_function( getWiki )
