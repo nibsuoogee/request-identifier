@@ -1,10 +1,11 @@
 from xmlrpc.server import SimpleXMLRPCServer
 from xmlrpc.server import SimpleXMLRPCRequestHandler
+from socketserver import ThreadingMixIn
 import xml.etree.ElementTree as ET
 import requests
 import os
 
-class XMLRPCServer(SimpleXMLRPCServer):
+class ThreadedXMLRPCServer(ThreadingMixIn, SimpleXMLRPCServer):
     pass
 
 class RequestHandler(SimpleXMLRPCRequestHandler):
@@ -115,7 +116,7 @@ def getWikiContent(content_title):
     return PAGE
 
 if __name__ == "__main__":
-    server = XMLRPCServer(('localhost', 8000), requestHandler=RequestHandler)
+    server = ThreadedXMLRPCServer(('localhost', 8000), requestHandler=RequestHandler)
     print("Listening on port 8000...")
 
     server.register_function( addEntry )
